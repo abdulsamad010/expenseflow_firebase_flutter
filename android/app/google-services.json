@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "954715702277",
+    "project_id": "expenseflow-firebase-flutter",
+    "storage_bucket": "expenseflow-firebase-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954715702277:android:12015b0d009377a6cb886c",
+        "android_client_info": {
+          "package_name": "com.abdulsamad010.expenseflow_firebase_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbSENL8KpgGBw9Uc1vuEQGMt0QP29KrQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

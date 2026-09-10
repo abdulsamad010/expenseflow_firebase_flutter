@@ -114,6 +114,7 @@ class _LoginScreenState extends State<SignupScreen> {
             if (state.state == "failed") {
               Navigator.of(context).pop();
             }
+
             if(state.state=="success"){
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginScreen()),(route) {
                 return false;

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'features/authentication/authentication_event.dart';
+import 'features/transactions/transaction_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => AuthenticationBloc(),)
+        BlocProvider(create: (context) => AuthenticationBloc(),),
+        BlocProvider(create: (context) => TransactionBloc(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

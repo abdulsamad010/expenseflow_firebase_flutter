@@ -4,6 +4,7 @@ import 'package:expenseflow_firebase_flutter/features/authentication/signup_scre
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../dashboard/dashboard_screen.dart';
 import 'authentication_event.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -69,7 +70,29 @@ class _LoginScreenState extends State<LoginScreen> {
               });
             }
 
-            if (state.state == "success" || state.state == "failed") {
+            if (state.state == "failed") {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Signup failed"),
+                ),
+              );
+            }
+
+            if (state.state == "success") {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Signup Successful"),
+                ),
+              );
+            }
+
+            if(state.state=="success"){
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>DashboardScreen()),(route) {
+                return false;
+              },);
+            }
+
+            if (state.state == "failed") {
               Navigator.of(context).pop();
             }
           },

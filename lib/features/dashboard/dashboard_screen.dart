@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expenseflow_firebase_flutter/features/authentication/login_screen.dart';
 import 'package:expenseflow_firebase_flutter/features/transactions/add_transaction_screen.dart';
 import 'package:expenseflow_firebase_flutter/features/transactions/transaction_bloc.dart';
 import 'package:expenseflow_firebase_flutter/features/transactions/transaction_state.dart';
@@ -21,7 +23,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     context.read<TransactionBloc>().add(FetchTransaction());
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message){
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -100,11 +101,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
     "Other",
   ];
 
+
   @override
   Widget build(BuildContext context) {
+
+
+
+    DateTime date=DateTime.now();
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white,title: Column(
+      appBar: AppBar(
+        backgroundColor: Colors.white,title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -118,6 +125,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   fontWeight: FontWeight.bold,
                   fontSize: 25
               ),),
+
+              Expanded(child: SizedBox()),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0,19.0,0,0),
+                child: Text("${date.toString().substring(0,10)}",style: TextStyle(color: Colors.grey,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15
+                ),),
+              )
             ],
           ),
 
@@ -128,6 +145,159 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),),
 
+      endDrawer: SafeArea(
+        child: BlocBuilder<TransactionBloc,TransactionState>(
+            builder: (context, state) =>Drawer(
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8.0,32,8,8),
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  child: Icon(Icons.perm_identity,size: 100,color: Colors.green,),
+                ),
+
+             SizedBox(height: 8,),
+
+             Text("${state.user_name}",style: TextStyle(
+               fontSize: 25,
+               fontWeight: FontWeight.bold
+             ),),
+
+
+                SizedBox(height: 12,),
+
+                Text("${state.user_email}",style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold
+                ),),
+
+                SizedBox(height: 12,),
+
+
+
+                ListTile(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+
+                  leading: Icon(Icons.home,color: Colors.green,size: 35,),
+                  title: Text("Home",style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),),
+                ),
+
+                ListTile(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTransactionScreen()));
+                  },
+
+                  leading: Icon(Icons.add_circle_rounded,color: Colors.green,size: 35,),
+                  title: Text("Add Transaction",style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),),
+                ),
+
+                ListTile(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>TransactionsScreen()));
+                  },
+
+                  leading: Icon(Icons.transfer_within_a_station,color: Colors.green,size: 35,),
+                  title: Text("View Transactions",style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),),
+                ),
+
+
+
+
+                ListTile(
+                  onTap: (){
+                    showDialog(context: context, builder: (context){
+                      return AlertDialog(
+                        title: Center(
+                          child: Text("About App",style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold
+                          ),),
+                        ),
+                        
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "ExpenseFlow is a simple and intuitive expense management app designed to help you keep track of your daily finances. "
+                                  "You can record your income and expenses, organize transactions, monitor your balance, and stay informed about your financial activity. "
+                                  "With Firebase integration, ExpenseFlow provides secure authentication, cloud-based data storage, and timely notifications to help you stay on top of your finances.",
+                              style: const TextStyle(
+                                fontSize: 15,
+                                height: 1.6,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
+                            SizedBox(height: 12,),
+                            ElevatedButton(onPressed: (){Navigator.pop(context);}, child: Text("OK"))
+                          ],
+                        ),
+                      );
+                    });
+                  },
+                  
+                  leading: Icon(Icons.info,color: Colors.green,size: 35,),
+                title: Text("About App",style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold
+                ),),
+                ),
+
+
+
+
+
+
+
+                Expanded(child: SizedBox()),
+
+                ListTile(
+                  onTap: (){
+                    showDialog(context: context, builder: (context){
+                      return AlertDialog(
+                        title: Center(
+                          child: Text("Are you sure to LogOut?",style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold
+                          ),),
+                        ),
+
+
+                          content: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.red),onPressed: ()async{
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LoginScreen()), (route) => false,);
+                          }, child: Text("Yes",style: TextStyle(color: Colors.white),))
+
+                      );
+                    });
+                  },
+
+                  leading: Icon(Icons.logout,color: Colors.red,size: 35,),
+                  title: Text("LogOut",style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                  ),),
+                ),
+
+              ],
+            ),
+          ),
+        )),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<TransactionBloc,TransactionState>(
@@ -155,6 +325,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             
                               Text("Total Balance",style: TextStyle(color: Colors.white,
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
                                   fontSize: 15
                               ),),
             
@@ -169,13 +340,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   Expanded(
                                     child: Text("${state.balance}",style: TextStyle(color: Colors.white,
                                         fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic,
                                         fontSize: 35
                                     ),),
                                   ),
-            
-            
-                            Icon(Icons.account_balance_wallet_outlined,color: Colors.lightGreenAccent,size: 70,)
-            
+
+
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                      child: Image.asset("assets/logo.png",width: 100,))
                             ],
                           ),
             
@@ -193,6 +366,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                               Text("Total Income",style: TextStyle(color: Colors.white,
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
                                   fontSize: 10
                               ),),
 
@@ -204,6 +378,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                               Text("Total Expense",style: TextStyle(color: Colors.white,
                                   fontWeight: FontWeight.bold,
+                                  fontStyle: FontStyle.italic,
                                   fontSize: 10
                               ),),
 
@@ -311,7 +486,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 Expanded(child: SizedBox()),
 
 
+                                count!=0?
                                 Text("$count",style: TextStyle(color: Colors.black87,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15
+                                ),): Text("No Transaction",style: TextStyle(color: Colors.grey,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 15
                                 ),),

@@ -3,6 +3,7 @@ import 'package:expenseflow_firebase_flutter/features/transactions/transaction_b
 import 'package:expenseflow_firebase_flutter/features/transactions/transaction_event.dart';
 import 'package:expenseflow_firebase_flutter/features/transactions/transaction_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,15 +53,43 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   }
 
   @override
+  void initState() {
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("${message.notification!.body}"),
+        ),
+      );
+    });
+    super.initState();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<TransactionBloc, TransactionState>(
       listener: (context, state) {
+
+        if(state.state=="wait"){
+          showDialog(context: context, barrierDismissible: false,builder:(context){
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              content: Container(
+                  height: 100,
+                  width: 100,
+                  padding: EdgeInsets.all(8),
+                  child:
+                  Center(child: CircularProgressIndicator(color: Colors.grey))),
+            );
+          });
+        }
+
         if (state.state == "success") {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Transaction added successfully"),
-            ),
-          );
+
+          context.read<TransactionBloc>().add(FetchTransaction());
+
+          Navigator.pop(context);
 
           Navigator.pushAndRemoveUntil(
             context,
@@ -72,6 +101,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         }
 
         if (state.state == "failed") {
+          Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Transaction failed!! Try Again"),

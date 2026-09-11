@@ -17,3 +17,4 @@ class DeleteTransaction extends TransactionEvent{
 class FetchTransaction extends TransactionEvent{
   FetchTransaction();
 }
+

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expenseflow_firebase_flutter/features/authentication/authentication_event.dart';
 import 'package:expenseflow_firebase_flutter/features/authentication/authentication_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +20,13 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent,AuthenticationState>{
           password: event.password,
           email: event.email,
         );
+
+        final info=await FirebaseFirestore.instance.collection("user_information").doc(FirebaseAuth.instance.currentUser!.uid);
+
+        info.set({
+          "name":event.name,
+        });
+
 
         emit(AuthenticationState(
           email: event.email,

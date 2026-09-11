@@ -3,10 +3,12 @@ import 'package:expenseflow_firebase_flutter/features/authentication/authenticat
 abstract class AuthenticationEvent {}
 
 class Signup extends AuthenticationEvent {
+  final String name;
   final String email;
   final String password;
 
   Signup({
+    required this.name,
     required this.email,
     required this.password,
   });

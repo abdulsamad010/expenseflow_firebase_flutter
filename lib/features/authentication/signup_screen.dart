@@ -275,7 +275,7 @@ class _LoginScreenState extends State<SignupScreen> {
 
                         ElevatedButton(onPressed: (){
                           if(fK.currentState!.validate()){
-                            context.read<AuthenticationBloc>().add(Signup(email: eC.text, password: pC.text));
+                            context.read<AuthenticationBloc>().add(Signup(email: eC.text, password: pC.text,name:fNC.text,));
                           }
                         },
                           style:ElevatedButton.styleFrom(

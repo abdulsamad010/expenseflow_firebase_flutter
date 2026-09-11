@@ -78,14 +78,6 @@ class _LoginScreenState extends State<LoginScreen> {
               );
             }
 
-            if (state.state == "success") {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Signup Successful"),
-                ),
-              );
-            }
-
             if(state.state=="success"){
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>DashboardScreen()),(route) {
                 return false;
@@ -141,8 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                         SizedBox(height: 8,),
 
-                        Center(child: Icon(Icons.account_balance_wallet_outlined,color: Colors.green,size: 55,)),
-
+                        Center(child: Image.asset("assets/logo.png",width: 100,)),
                         SizedBox(height: 16,),
 
                         Text("Login to your account",style: TextStyle(color: Colors.black,

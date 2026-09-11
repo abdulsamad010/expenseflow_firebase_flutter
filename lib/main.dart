@@ -1,5 +1,7 @@
 import 'package:expenseflow_firebase_flutter/features/authentication/authentication_bloc.dart';
 import 'package:expenseflow_firebase_flutter/features/authentication/login_screen.dart';
+import 'package:expenseflow_firebase_flutter/features/dashboard/dashboard_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  final user=await FirebaseAuth.instance.currentUser;
+
   await FirebaseMessaging.instance.requestPermission(
     alert:true,
     badge: true,
@@ -25,12 +29,14 @@ void main() async {
   final token=await FirebaseMessaging.instance.getToken();
   print("Token: $token");
 
+  await FirebaseMessaging.instance.subscribeToTopic("expenseflow_users");
 
-  runApp(const MyApp());
+  runApp(MyApp(user:user));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final User? user;
+  const MyApp({super.key,this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: .fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: LoginScreen(),
+        home: user!=null ? DashboardScreen() : LoginScreen(),
       ),
     );
   }

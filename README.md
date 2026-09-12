@@ -350,6 +350,7 @@ expenseflow_users
 
 The app subscribes to the topic using Firebase Messaging:
 
+```markdown
 ```dart
 await FirebaseMessaging.instance.subscribeToTopic("expenseflow_users");
 ```

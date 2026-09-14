@@ -326,9 +326,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 SizedBox(height: 8,),
                 TextFormField(
                   readOnly: true,
-                  controller: TextEditingController(
-                    text: "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
-                  ),
+                  controller: TextEditingController(),
                   decoration: InputDecoration(
                       label: Text("Select Date",style: TextStyle(color: Colors.grey,
                         fontSize: 10,
@@ -346,7 +344,6 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                     );
 
                     if (date != null) {
-
                         selectedDate = date;
                       }
 

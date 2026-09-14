@@ -329,7 +329,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   fontSize: 15
                               ),),
             
-                              Icon(Icons.attach_money,color: Colors.white,size: 20,)
+                              Icon(Icons.currency_rupee,color: Colors.white,size: 20,)
             
                             ],
                           ),
@@ -370,7 +370,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   fontSize: 10
                               ),),
 
-                              Icon(Icons.attach_money,color: Colors.white,size: 15,),
+                              Icon(Icons.currency_rupee,color: Colors.white,size: 15,),
 
                               Expanded(child: SizedBox()),
 
@@ -382,7 +382,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   fontSize: 10
                               ),),
 
-                              Icon(Icons.attach_money,color: Colors.white,size: 15,)
+                              Icon(Icons.currency_rupee,color: Colors.white,size: 15,)
 
                             ],
                           ),

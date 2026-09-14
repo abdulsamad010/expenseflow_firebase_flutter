@@ -127,192 +127,188 @@ class _LoginScreenState extends State<SignupScreen> {
               key: fK,
               child: Center(
                 child: SingleChildScrollView(
-                  child: SizedBox(
-                    height: MediaQuery.sizeOf(context).height,
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                        SizedBox(height: 20,),
+                      SizedBox(height: 20,),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
 
-                            IconButton(onPressed: (){
-                              Navigator.pop(context);
-                            }, icon: Icon(Icons.arrow_back,color: Colors.black,size: 30,)),
+                          IconButton(onPressed: (){
+                            Navigator.pop(context);
+                          }, icon: Icon(Icons.arrow_back,color: Colors.black,size: 30,)),
 
-                            Expanded(child: SizedBox()),
+                          SizedBox(),
 
-                            Text("Create Account",style: TextStyle(color: Colors.grey,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),textAlign: TextAlign.right,),
-                          ],
-                        ),
+                          Text("Create Account",style: TextStyle(color: Colors.grey,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),textAlign: TextAlign.right,),
+                        ],
+                      ),
 
-                        Expanded(child: SizedBox()),
+                      SizedBox(),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Expense",style: TextStyle(color: Colors.black,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold,
-                            )),
-                            Text("Flow",style: TextStyle(color: Colors.green,
-                              fontSize: 35,
-                              fontWeight: FontWeight.bold,
-                            ))
-                          ],
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Expense",style: TextStyle(color: Colors.black,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                          )),
+                          Text("Flow",style: TextStyle(color: Colors.green,
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                          ))
+                        ],
+                      ),
 
-                        SizedBox(height: 8,),
+                      SizedBox(height: 8,),
 
-                        Center(child: Icon(Icons.account_balance_wallet_outlined,color: Colors.green,size: 55,)),
+                      Center(child: Icon(Icons.account_balance_wallet_outlined,color: Colors.green,size: 55,)),
 
-                        SizedBox(height: 16,),
+                      SizedBox(height: 16,),
 
-                        Text("Create your account",style: TextStyle(color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
+                      Text("Create your account",style: TextStyle(color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      )),
 
-                        SizedBox(height: 4,),
+                      SizedBox(height: 4,),
 
-                        Text("Start your journey to a smarter financial management",style: TextStyle(color: Colors.grey,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        )),
+                      Text("Start your journey to a smarter financial management",style: TextStyle(color: Colors.grey,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      )),
 
-                        SizedBox(height: 16,),
+                      SizedBox(height: 16,),
 
-                        TextFormField(
-                          decoration: InputDecoration(
-                              label: Text("Enter Full Name",style: TextStyle(color: Colors.grey,
-                                fontSize: 10,
-                              )),
-                              prefixIcon: Icon(Icons.perm_identity,color: Colors.grey,),
-                              border: OutlineInputBorder()
-                          ),
-                          controller:fNC,
-                          validator: fNV,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                        ),
-
-                        SizedBox(height: 8,),
-
-                        TextFormField(
-                          decoration: InputDecoration(
-                              label: Text("Enter Email",style: TextStyle(color: Colors.grey,
-                                fontSize: 10,
-                              )),
-                              prefixIcon: Icon(Icons.mail,color: Colors.grey,),
-                              border: OutlineInputBorder()
-                          ),
-                          controller: eC,
-                          validator: eV,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                        ),
-
-                        SizedBox(height: 8,),
-
-                        BlocBuilder<AuthenticationBloc,AuthenticationState>(
-                          builder: (context, state) => TextFormField(
-                            decoration: InputDecoration(
-                              label: Text("Enter Password",style: TextStyle(color: Colors.grey,
-                                fontSize: 10,
-                              )),
-                              prefixIcon: Icon(Icons.lock,color: Colors.grey,),
-                              border: OutlineInputBorder(),
-                              suffixIcon: IconButton(onPressed: (){
-                                if(icon==visile){
-                                  icon=nonVisible;
-                                }
-                                else{
-                                  icon=visile;
-                                }
-                                context.read<AuthenticationBloc>().add(Obscure());
-                              }, icon: icon,),
-                            ),
-                            obscureText: state.obscure,
-                            controller: pC,
-                            validator: pV,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                          ),
-                        ),
-
-                        SizedBox(height: 8,),
-
-                        BlocBuilder<AuthenticationBloc,AuthenticationState>(
-                          builder: (context, state) => TextFormField(
-                            decoration: InputDecoration(
-                              label: Text("Confirm Password",style: TextStyle(color: Colors.grey,
-                                fontSize: 10,
-                              )),
-                              prefixIcon: Icon(Icons.lock,color: Colors.grey,),
-                              border: OutlineInputBorder(),
-                              suffixIcon: IconButton(onPressed: (){
-                                if(icon==visile){
-                                  icon=nonVisible;
-                                }
-                                else{
-                                  icon=visile;
-                                }
-                                context.read<AuthenticationBloc>().add(Obscure());
-                              }, icon: icon,),
-                            ),
-                            obscureText: state.obscure,
-                            controller: cPC,
-                            validator: cpV,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                          ),
-                        ),
-
-                        SizedBox(height: 16,),
-
-                        ElevatedButton(onPressed: (){
-                          if(fK.currentState!.validate()){
-                            context.read<AuthenticationBloc>().add(Signup(email: eC.text, password: pC.text,name:fNC.text,));
-                          }
-                        },
-                          style:ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [Icon(Icons.arrow_forward,color: Colors.white,),
-                              Text("Signup",style: TextStyle(color: Colors.white,
-                                fontSize: 15,
-                              )),
-
-                            ],
-                          ),),
-
-                        SizedBox(height: 8,),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Already have an account?",style: TextStyle(color: Colors.grey,
+                      TextFormField(
+                        decoration: InputDecoration(
+                            label: Text("Enter Full Name",style: TextStyle(color: Colors.grey,
                               fontSize: 10,
                             )),
-
-                            TextButton(onPressed: (){
-                              Navigator.pop(context);
-                              }, child: Text("Login",style: TextStyle(color: Colors.green,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold
-                            )),)
-                          ],
+                            prefixIcon: Icon(Icons.perm_identity,color: Colors.grey,),
+                            border: OutlineInputBorder()
                         ),
+                        controller:fNC,
+                        validator: fNV,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      ),
 
-                        Expanded(child: SizedBox()),
+                      SizedBox(height: 8,),
 
-                      ],
-                    ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            label: Text("Enter Email",style: TextStyle(color: Colors.grey,
+                              fontSize: 10,
+                            )),
+                            prefixIcon: Icon(Icons.mail,color: Colors.grey,),
+                            border: OutlineInputBorder()
+                        ),
+                        controller: eC,
+                        validator: eV,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      ),
+
+                      SizedBox(height: 8,),
+
+                      BlocBuilder<AuthenticationBloc,AuthenticationState>(
+                        builder: (context, state) => TextFormField(
+                          decoration: InputDecoration(
+                            label: Text("Enter Password",style: TextStyle(color: Colors.grey,
+                              fontSize: 10,
+                            )),
+                            prefixIcon: Icon(Icons.lock,color: Colors.grey,),
+                            border: OutlineInputBorder(),
+                            suffixIcon: IconButton(onPressed: (){
+                              if(icon==visile){
+                                icon=nonVisible;
+                              }
+                              else{
+                                icon=visile;
+                              }
+                              context.read<AuthenticationBloc>().add(Obscure());
+                            }, icon: icon,),
+                          ),
+                          obscureText: state.obscure,
+                          controller: pC,
+                          validator: pV,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                        ),
+                      ),
+
+                      SizedBox(height: 8,),
+
+                      BlocBuilder<AuthenticationBloc,AuthenticationState>(
+                        builder: (context, state) => TextFormField(
+                          decoration: InputDecoration(
+                            label: Text("Confirm Password",style: TextStyle(color: Colors.grey,
+                              fontSize: 10,
+                            )),
+                            prefixIcon: Icon(Icons.lock,color: Colors.grey,),
+                            border: OutlineInputBorder(),
+                            suffixIcon: IconButton(onPressed: (){
+                              if(icon==visile){
+                                icon=nonVisible;
+                              }
+                              else{
+                                icon=visile;
+                              }
+                              context.read<AuthenticationBloc>().add(Obscure());
+                            }, icon: icon,),
+                          ),
+                          obscureText: state.obscure,
+                          controller: cPC,
+                          validator: cpV,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                        ),
+                      ),
+
+                      SizedBox(height: 16,),
+
+                      ElevatedButton(onPressed: (){
+                        if(fK.currentState!.validate()){
+                          context.read<AuthenticationBloc>().add(Signup(email: eC.text, password: pC.text,name:fNC.text,));
+                        }
+                      },
+                        style:ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Icon(Icons.arrow_forward,color: Colors.white,),
+                            Text("Signup",style: TextStyle(color: Colors.white,
+                              fontSize: 15,
+                            )),
+
+                          ],
+                        ),),
+
+                      SizedBox(height: 8,),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Already have an account?",style: TextStyle(color: Colors.grey,
+                            fontSize: 10,
+                          )),
+
+                          TextButton(onPressed: (){
+                            Navigator.pop(context);
+                            }, child: Text("Login",style: TextStyle(color: Colors.green,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold
+                          )),)
+                        ],
+                      ),
+
+                      SizedBox(),
+
+                    ],
                   ),
                 ),
               ),
